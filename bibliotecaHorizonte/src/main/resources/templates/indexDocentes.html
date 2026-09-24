@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Horizonte - Docentes</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans leading-normal tracking-normal">
+
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-700">Lista de Docentes</h1>
+        <a th:href="@{/docentes/agregar}"
+           class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded shadow transition duration-300">
+            + Agregar Docente
+        </a>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="min-w-full leading-normal">
+            <thead>
+            <tr class="bg-gray-800 text-white uppercase text-sm">
+                <th class="py-3 px-6 text-left font-semibold">
+                    <a th:href="@{'/docentes/pagina/' + ${pasarPagina} + '?ordenarCampo=nombre&ordenarDireccion=' + ${revertirOrden}}" class="hover:text-indigo-300">
+                        Nombre &#x21C5;
+                    </a>
+                </th>
+                <th class="py-3 px-6 text-left font-semibold">
+                    <a th:href="@{'/docentes/pagina/' + ${pasarPagina} + '?ordenarCampo=apellido&ordenarDireccion=' + ${revertirOrden}}" class="hover:text-indigo-300">
+                        Apellido &#x21C5;
+                    </a>
+                </th>
+                <th class="py-3 px-6 text-left font-semibold">
+                    <a th:href="@{'/docentes/pagina/' + ${pasarPagina} + '?ordenarCampo=email&ordenarDireccion=' + ${revertirOrden}}" class="hover:text-indigo-300">
+                        Email &#x21C5;
+                    </a>
+                </th>
+                <th class="py-3 px-6 text-center font-semibold">Acciones</th>
+            </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+            <tr th:each="docente : ${listaDocentes}" class="border-b border-gray-200 hover:bg-gray-50 transition duration-150">
+                <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${docente.nombre}"></td>
+                <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${docente.apellido}"></td>
+                <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${docente.email}"></td>
+                <td class="py-3 px-6 text-center flex justify-center space-x-4">
+                    <a th:href="@{/docentes/actualizar/{id}(id=${docente.id})}"
+                       class="text-blue-500 hover:text-blue-700 font-semibold underline">
+                        Actualizar
+                    </a>
+                    <a th:href="@{/docentes/eliminar/{id}(id=${docente.id})}"
+                       class="text-red-500 hover:text-red-700 font-semibold underline"
+                       onclick="return confirm('¿Estás seguro de que deseas eliminar a este docente?');">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(listaDocentes)}">
+                <td colspan="4" class="py-4 px-6 text-center text-gray-500 italic">No hay docentes registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${totalPaginas > 1}" class="flex flex-col sm:flex-row justify-between items-center mt-6 text-sm text-gray-600">
+        <div class="mb-4 sm:mb-0">
+            Total de registros: <span class="font-bold text-gray-800" th:text="${totalElementos}"></span>
+        </div>
+
+        <div class="flex items-center space-x-1">
+            <a th:if="${pasarPagina > 1}"
+               th:href="@{'/docentes/pagina/' + ${pasarPagina - 1} + '?ordenarCampo=' + ${ordenarCampo} + '&ordenarDireccion=' + ${ordenarDireccion}}"
+               class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">
+                &laquo; Anterior
+            </a>
+            <span th:unless="${pasarPagina > 1}" class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">
+                   &laquo; Anterior
+                </span>
+
+            <span th:each="i: ${#numbers.sequence(1, totalPaginas)}">
+                    <a th:if="${pasarPagina != i}"
+                       th:href="@{'/docentes/pagina/' + ${i} + '?ordenarCampo=' + ${ordenarCampo} + '&ordenarDireccion=' + ${ordenarDireccion}}"
+                       class="px-3 py-1 border border-gray-300 rounded hover:bg-indigo-50 hover:text-indigo-600 transition">
+                        [[${i}]]
+                    </a>
+                    <span th:unless="${pasarPagina != i}"
+                          class="px-3 py-1 border border-indigo-500 bg-indigo-500 text-white rounded">
+                        [[${i}]]
+                    </span>
+                </span>
+
+            <a th:if="${pasarPagina < totalPaginas}"
+               th:href="@{'/docentes/pagina/' + ${pasarPagina + 1} + '?ordenarCampo=' + ${ordenarCampo} + '&ordenarDireccion=' + ${ordenarDireccion}}"
+               class="px-3 py-1 border border-gray-300 rounded hover:bg-gray-200 transition">
+                Siguiente &raquo;
+            </a>
+            <span th:unless="${pasarPagina < totalPaginas}" class="px-3 py-1 border border-gray-200 rounded text-gray-400 cursor-not-allowed">
+                   Siguiente &raquo;
+                </span>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
