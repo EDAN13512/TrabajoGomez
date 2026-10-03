@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import biblioteca.dtos.docenteDTO.DocenteDTO;
+import biblioteca.dtos.docenteDto.DocenteDTO;
 import biblioteca.service.DocenteServicio;
 
 import java.util.List;

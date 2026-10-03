@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:replace="~{layout :: plantilla('Solicitudes Pendientes', ~{::#contenidoPrincipal})}">
+
+    <div id="contenidoPrincipal">
+        <!-- Alertas de retroalimentación -->
+        <div th:if="${mensajeExito}" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 shadow-sm" role="alert">
+            <strong class="font-bold">¡Éxito!</strong>
+            <span class="block sm:inline" th:text="${mensajeExito}"></span>
+        </div>
+
+        <div th:if="${mensajeError}" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 shadow-sm" role="alert">
+            <strong class="font-bold">Error de Regla de Negocio:</strong>
+            <span class="block sm:inline" th:text="${mensajeError}"></span>
+        </div>
+
+        <div th:if="${mensajeInfo}" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 shadow-sm" role="alert">
+            <strong class="font-bold">Información:</strong>
+            <span class="block sm:inline" th:text="${mensajeInfo}"></span>
+        </div>
+
+        <!-- Encabezado -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-700">Solicitudes Pendientes</h1>
+        </div>
+
+        <!-- Tabla de Solicitudes -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+                <thead>
+                <tr class="bg-gray-800 text-white uppercase text-sm">
+                    <th class="py-3 px-6 text-left font-semibold">Docente</th>
+                    <th class="py-3 px-6 text-left font-semibold">Recurso</th>
+                    <th class="py-3 px-6 text-left font-semibold">Fecha</th>
+                    <th class="py-3 px-6 text-left font-semibold">Módulo</th>
+                    <th class="py-3 px-6 text-center font-semibold">Acciones</th>
+                </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                <!-- Iteración sobre las pendientes -->
+                <tr th:each="solicitud : ${listaPendientes}" class="border-b border-gray-200 hover:bg-gray-50 transition duration-150">
+                    <td class="py-3 px-6 text-left whitespace-nowrap font-medium" th:text="${solicitud.nombreDocente}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${solicitud.nombreRecurso}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${solicitud.fecha}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${solicitud.nombreModulo}"></td>
+
+                    <td class="py-3 px-6 text-center flex justify-center space-x-3">
+                        <!-- Botón Confirmar (Usa POST por seguridad y requerimientos REST) -->
+                        <form th:action="@{/biblioteca/confirmar/{id}(id=${solicitud.id})}" method="post">
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-1 px-4 rounded shadow transition duration-200">
+                                Confirmar
+                            </button>
+                        </form>
+
+                        <!-- Botón Rechazar -->
+                        <form th:action="@{/biblioteca/rechazar/{id}(id=${solicitud.id})}" method="post">
+                            <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded shadow transition duration-200"
+                                    onclick="return confirm('¿Estás seguro de que deseas rechazar esta solicitud?');">
+                                Rechazar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                <!-- Fila por si no hay pendientes -->
+                <tr th:if="${#lists.isEmpty(listaPendientes)}">
+                    <td colspan="5" class="py-6 px-6 text-center text-gray-500 italic bg-gray-50">
+                        No hay solicitudes pendientes por revisar.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

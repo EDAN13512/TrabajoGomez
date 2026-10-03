@@ -1,7 +1,7 @@
 package biblioteca.service;
 
 import org.springframework.data.domain.Page;
-import biblioteca.dtos.docenteDTO.DocenteDTO;
+import biblioteca.dtos.docenteDto.DocenteDTO;
 
 import java.util.List;
 

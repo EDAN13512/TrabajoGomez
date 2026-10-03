@@ -8,7 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import biblioteca.model.Docente;
 import biblioteca.repository.DocenteRepo;
-import biblioteca.dtos.docenteDTO.DocenteDTO;
+import biblioteca.dtos.docenteDto.DocenteDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;

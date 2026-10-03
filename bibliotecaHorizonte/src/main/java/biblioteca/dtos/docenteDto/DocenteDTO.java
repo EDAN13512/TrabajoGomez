@@ -1,4 +1,4 @@
-package biblioteca.dtos.docenteDTO;
+package biblioteca.dtos.docenteDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
