@@ -31,7 +31,7 @@ public class DocenteControlador {
 
     @PostMapping("/guardar")
     public String guardarDocente(@ModelAttribute("docente") DocenteDTO docenteDTO) {
-        if (docenteDTO.getId() == 0) {
+        if (docenteDTO.getId() == null) {
             docenteServicio.agregarDocente(docenteDTO);
         } else {
             docenteServicio.actualizarDocente(docenteDTO.getId(), docenteDTO);
@@ -40,14 +40,14 @@ public class DocenteControlador {
     }
 
     @GetMapping("/actualizar/{id}")
-    public String actualizarDocenteForm(@PathVariable(value = "id") long id, Model modelo) {
+    public String actualizarDocenteForm(@PathVariable(value = "id") Long id, Model modelo) {
         DocenteDTO docenteDTO = docenteServicio.getDocenteId(id);
         modelo.addAttribute("docente", docenteDTO);
         return "actualizarDocente";
     }
 
     @GetMapping("/eliminar/{id}")
-    public String borrarDocente(@PathVariable(value = "id") long id) {
+    public String borrarDocente(@PathVariable(value = "id") Long id) {
         docenteServicio.eliminarDocente(id);
         return "redirect:/docentes";
     }

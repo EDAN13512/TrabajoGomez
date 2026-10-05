@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" th:fragment="plantilla(titulo, contenido)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${titulo}">Biblioteca Horizonte</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        biblioteca: '#1e3a8a', // Un azul oscuro personalizado
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans leading-normal tracking-normal flex flex-col min-h-screen">
+
+<nav class="bg-biblioteca p-4 text-white shadow-md">
+    <div class="container mx-auto flex justify-between items-center max-w-6xl">
+        <a th:href="@{/docentes}" class="text-xl font-bold tracking-wider">BIBLIOTECA HORIZONTE</a>
+        <div class="space-x-4">
+            <a th:href="@{/docentes}" class="hover:text-gray-300 transition">Docentes</a>
+            <a th:href="@{/reservas/nueva}" class="hover:text-gray-300 transition">Pedir Equipo</a>
+            <a th:href="@{/reservas}" class="hover:text-gray-300 transition">Ver Reservas</a>
+            <a th:href="@{/biblioteca/pendientes}" class="text-yellow-300 hover:text-white transition font-bold ml-4">Lucía (Pendientes)</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container mx-auto px-4 py-8 max-w-6xl flex-grow">
+    <div th:replace="${contenido}"></div>
+</main>
+
+<footer class="bg-gray-800 text-white text-center p-4 mt-auto">
+    <p class="text-sm">&copy; 2026 Biblioteca Horizonte. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>

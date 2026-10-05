@@ -9,12 +9,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SolicitudDTO {
-    private long id;
-    private long docenteId;
+    private Long id;
+    private Long docenteId;
     private String nombreDocente;
-    private long recursoId;
+    private Long recursoId;
     private String nombreRecurso;
-    private long moduloId;
+    private Long moduloId;
     private String nombreModulo;
     private LocalDate fecha;
     private String estado;

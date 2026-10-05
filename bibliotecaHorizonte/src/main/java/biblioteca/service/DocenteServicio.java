@@ -8,8 +8,8 @@ import java.util.List;
 public interface DocenteServicio {
     List<DocenteDTO> getDocentes();
     void agregarDocente(DocenteDTO docenteDTO);
-    DocenteDTO getDocenteId(long id);
-    void eliminarDocente(long id);
+    DocenteDTO getDocenteId(Long id);
+    void eliminarDocente(Long id);
     Page<DocenteDTO> encontrarPaginas(int paginaNo, int dimensionPagina, String ordenarCampo, String ordenarDireccion);
-    void actualizarDocente(long id, DocenteDTO docenteDTO);
+    void actualizarDocente(Long id, DocenteDTO docenteDTO);
 }

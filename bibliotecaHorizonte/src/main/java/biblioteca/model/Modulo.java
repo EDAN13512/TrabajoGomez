@@ -14,7 +14,7 @@ public class Modulo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "nombre", nullable = false)
     private String nombre; // Ej: "Módulo 1"

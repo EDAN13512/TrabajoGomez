@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:replace="~{layout :: plantilla('Nueva Reserva', ~{::#contenidoPrincipal})}">
+
+    <div id="contenidoPrincipal" class="max-w-2xl mx-auto mt-8">
+
+        <div th:if="${mensajeExito}" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-6 shadow-sm" role="alert">
+            <strong class="font-bold">¡Enviado!</strong>
+            <span class="block sm:inline" th:text="${mensajeExito}"></span>
+        </div>
+
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-2xl font-bold text-gray-700 mb-6 text-center">Solicitar Equipo (Docentes)</h2>
+
+            <form th:action="@{/reservas/guardar}" th:object="${solicitud}" method="post">
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">¿Quién solicita?</label>
+                    <select th:field="*{docenteId}" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="" disabled selected>-- Seleccione su nombre --</option>
+                        <option th:each="docente : ${listaDocentes}" th:value="${docente.id}" th:text="${docente.nombre + ' ' + docente.apellido}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Recurso requerido</label>
+                    <select th:field="*{recursoId}" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="" disabled selected>-- Seleccione un equipo --</option>
+                        <option th:each="recurso : ${listaRecursos}" th:value="${recurso.id}" th:text="${recurso.nombre + ' (' + recurso.tipo + ')'}"></option>
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Fecha de uso</label>
+                    <input type="date" th:field="*{fecha}" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">Módulo horario</label>
+                    <select th:field="*{moduloId}" required class="shadow border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="" disabled selected>-- Seleccione el horario --</option>
+                        <option th:each="modulo : ${listaModulos}" th:value="${modulo.id}" th:text="${modulo.nombre + ' (' + modulo.horaInicio + ' - ' + modulo.horaFin + ')'}"></option>
+                    </select>
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded focus:outline-none focus:shadow-outline transition duration-200 w-full">
+                        Enviar Solicitud
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -33,14 +33,14 @@ public class DocenteServicioImpl implements DocenteServicio {
     }
 
     @Override
-    public DocenteDTO getDocenteId(long id) {
+    public DocenteDTO getDocenteId(Long id) {
         Docente docente = docenteRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("DOCENTE CON EL ID " + id + " NO ENCONTRADO"));
         return mapearADTO(docente);
     }
 
     @Override
-    public void actualizarDocente(long id, DocenteDTO docenteDTO) {
+    public void actualizarDocente(Long id, DocenteDTO docenteDTO) {
         Docente docenteExistente = docenteRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("DOCENTE CON EL ID " + id + " NO ENCONTRADO"));
 
@@ -52,7 +52,7 @@ public class DocenteServicioImpl implements DocenteServicio {
     }
 
     @Override
-    public void eliminarDocente(long id) {
+    public void eliminarDocente(Long id) {
         docenteRepo.deleteById(id);
     }
 

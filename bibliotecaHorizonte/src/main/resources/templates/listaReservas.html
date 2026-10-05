@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:replace="~{layout :: plantilla('Estado de Reservas', ~{::#contenidoPrincipal})}">
+
+    <div id="contenidoPrincipal">
+
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-3xl font-bold text-gray-700">Estado de Solicitudes y Reservas</h1>
+            <a th:href="@{/reservas/nueva}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow transition duration-300">
+                + Nueva Solicitud
+            </a>
+        </div>
+
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full leading-normal">
+                <thead>
+                <tr class="bg-gray-800 text-white uppercase text-sm">
+                    <th class="py-3 px-6 text-left font-semibold">Docente</th>
+                    <th class="py-3 px-6 text-left font-semibold">Recurso</th>
+                    <th class="py-3 px-6 text-left font-semibold">Fecha</th>
+                    <th class="py-3 px-6 text-left font-semibold">Módulo</th>
+                    <th class="py-3 px-6 text-center font-semibold">Estado</th>
+                </tr>
+                </thead>
+                <tbody class="text-gray-600 text-sm font-light">
+                <tr th:each="reserva : ${listaReservas}" class="border-b border-gray-200 hover:bg-gray-50 transition duration-150">
+                    <td class="py-3 px-6 text-left whitespace-nowrap font-medium" th:text="${reserva.nombreDocente}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${reserva.nombreRecurso}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${reserva.fecha}"></td>
+                    <td class="py-3 px-6 text-left whitespace-nowrap" th:text="${reserva.nombreModulo}"></td>
+
+                    <td class="py-3 px-6 text-center">
+                        <span th:if="${reserva.estado == 'PENDIENTE'}" class="bg-yellow-200 text-yellow-800 py-1 px-3 rounded-full text-xs font-bold">
+                            PENDIENTE
+                        </span>
+                        <span th:if="${reserva.estado == 'CONFIRMADA'}" class="bg-green-200 text-green-800 py-1 px-3 rounded-full text-xs font-bold">
+                            CONFIRMADA
+                        </span>
+                        <span th:if="${reserva.estado == 'RECHAZADA'}" class="bg-red-200 text-red-800 py-1 px-3 rounded-full text-xs font-bold">
+                            RECHAZADA
+                        </span>
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(listaReservas)}">
+                    <td colspan="5" class="py-6 px-6 text-center text-gray-500 italic bg-gray-50">
+                        Aún no hay reservas en el sistema.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
